@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicias en el Mundo Web</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            <img src="logo Delicias.jpg" alt="Logo Delicias">
+            <h1>DELICIAS</h1>
+        </div>
+
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#productos">Productos</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <button class="boton-carrito" onclick="mostrarCarrito()">
+            Carrito (<span id="cantidad">0</span>)
+        </button>
+
+        <button class="boton-carrito" onclick="abrirAdministracion()">
+            Administrar
+        </button>
+
+    </header>
+
+    <section id="inicio" class="inicio">
+
+        <div>
+            <h2>Bienvenidos a Delicias</h2>
+
+            <p>
+                Disfruta de nuestros deliciosos helados
+                y comidas junto a familiares y amigos.
+            </p>
+
+            <a href="#productos" class="boton">
+                Ver productos
+            </a>
+        </div>
+
+        <img src="helado.jpg" alt="Helado">
+
+    </section>
+
+
+    <section id="productos">
+
+        <h2 class="titulo">Nuestros Productos</h2>
+
+        <div class="productos">
+
+            <!-- HELADOS -->
+
+            <div class="producto">
+
+                <img src="helado.jpg" alt="Helados">
+
+                <h3>Helados</h3>
+
+                <p>Elige tu sabor favorito.</p>
+
+                <p class="precio">Bs. 10</p>
+
+                <label for="sabor">Selecciona un sabor:</label>
+
+                <select id="sabor" onchange="actualizarEstadoHelado()">
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Vainilla">Vainilla</option>
+                    <option value="Frutilla">Frutilla</option>
+                    <option value="Pasas al ron">Pasas al ron</option>
+                    <option value="Mora a la crema">Mora a la crema</option>
+                </select>
+
+                <p id="estado-helado" class="estado"></p>
+
+                <button id="btn-helado" onclick="agregarHelado()">
+                    Agregar al carrito
+                </button>
+
+            </div>
+
+            <div class="producto">
+
+                <img src="salchipapa.jpg" alt="Salchipapa">
+
+                <h3>Salchipapa</h3>
+
+                <p>Papas fritas acompañadas con salchicha.</p>
+
+                <p class="precio">Bs. 15</p>
+
+                <p id="estado-salchipapa" class="estado"></p>
+
+                <button id="btn-salchipapa"
+                    onclick="agregarProducto('Salchipapa', 15, 'salchipapa')">
+                    Agregar al carrito
+                </button>
+
+            </div>
+
+
+            <div class="producto">
+
+                <img src="hamburguesa.jpg" alt="Hamburguesa">
+
+                <h3>Hamburguesa</h3>
+
+                <p>Preparada con ingredientes frescos.</p>
+
+                <p class="precio">Bs. 20</p>
+
+                <p id="estado-hamburguesa" class="estado"></p>
+
+                <button id="btn-hamburguesa"
+                    onclick="agregarProducto('Hamburguesa', 20, 'hamburguesa')">
+                    Agregar al carrito
+                </button>
+
+            </div>
+
+            <div class="producto">
+
+                <img src="pollo.jpg" alt="Pollo a la canasta">
+
+                <h3>Pollo a la canasta</h3>
+
+                <p>Pollo crujiente acompañado de papas.</p>
+
+                <p class="precio">Bs. 20</p>
+
+                <p id="estado-pollo" class="estado"></p>
+
+                <button id="btn-pollo"
+                    onclick="agregarProducto('Pollo a la canasta', 20, 'pollo')">
+                    Agregar al carrito
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="panel-administracion" style="display: none;">
+
+        <h2>Administración de Delicias</h2>
+
+        <p>Desde aquí puedes cambiar la disponibilidad de tus productos.</p>
+
+        <h3>Sabores de helados</h3>
+
+        <div class="opcion-admin">
+            <label for="admin-chocolate">Chocolate:</label>
+            <select id="admin-chocolate"
+                onchange="cambiarSabor('Chocolate', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-vainilla">Vainilla:</label>
+            <select id="admin-vainilla"
+                onchange="cambiarSabor('Vainilla', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-frutilla">Frutilla:</label>
+            <select id="admin-frutilla"
+                onchange="cambiarSabor('Frutilla', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-pasas">Pasas al ron:</label>
+            <select id="admin-pasas"
+                onchange="cambiarSabor('Pasas al ron', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-mora">Mora a la crema:</label>
+            <select id="admin-mora"
+                onchange="cambiarSabor('Mora a la crema', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+
+        <h3>Otros productos</h3>
+
+        <div class="opcion-admin">
+            <label for="admin-salchipapa">Salchipapa:</label>
+            <select id="admin-salchipapa"
+                onchange="cambiarProducto('salchipapa', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-hamburguesa">Hamburguesa:</label>
+            <select id="admin-hamburguesa"
+                onchange="cambiarProducto('hamburguesa', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <div class="opcion-admin">
+            <label for="admin-pollo">Pollo a la canasta:</label>
+            <select id="admin-pollo"
+                onchange="cambiarProducto('pollo', this.value)">
+                <option value="disponible">Disponible</option>
+                <option value="agotado">Agotado</option>
+            </select>
+        </div>
+
+        <button onclick="cerrarAdministracion()">
+            Cerrar administración
+        </button>
+
+    </section>
+
+
+    <section id="contacto" class="contacto">
+
+        <h2>Contáctanos</h2>
+
+        <p>Dirección: Zona 16 de Julio, calle Alfonso Becerra.</p>
+
+        <p>Realiza tus pedidos por WhatsApp.</p>
+
+        <a href="https://wa.me/59163390248"
+            target="_blank"
+            class="whatsapp">
+            Pedir por WhatsApp
+        </a>
+
+    </section>
+
+
+    <div id="ventana-carrito" class="carrito">
+
+        <div class="contenido-carrito">
+
+            <button class="cerrar" onclick="cerrarCarrito()">X</button>
+
+            <h2>Mi carrito</h2>
+
+            <div id="lista-carrito">
+                <p>El carrito está vacío.</p>
+            </div>
+
+            <h3>
+                Total: Bs. <span id="total">0</span>
+            </h3>
+
+            <button class="whatsapp" onclick="enviarWhatsApp()">
+                Enviar pedido por WhatsApp
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        <p>© 2026 Delicias en el Mundo Web</p>
+    </footer>
+
+    <script>
+
+
+        const claveAdministradora = "delicias2026";
+
+        let carrito = [];
+
+
+
+        let estados = {
+            sabores: {
+                "Chocolate": "disponible",
+                "Vainilla": "disponible",
+                "Frutilla": "disponible",
+                "Pasas al ron": "disponible",
+                "Mora a la crema": "disponible"
+            },
+
+            productos: {
+                salchipapa: "disponible",
+                hamburguesa: "disponible",
+                pollo: "disponible"
+            }
+        };
+
+
+
+        let guardados = JSON.parse(
+            localStorage.getItem("estadosDelicias")
+        );
+
+        if (guardados) {
+
+            if (guardados.sabores) {
+                Object.assign(estados.sabores, guardados.sabores);
+            }
+
+            if (guardados.productos) {
+                Object.assign(estados.productos, guardados.productos);
+            }
+
+        }
+
+
+
+        function guardarEstados() {
+
+            localStorage.setItem(
+                "estadosDelicias",
+                JSON.stringify(estados)
+            );
+
+        }
+
+
+
+        function abrirAdministracion() {
+
+            let clave = prompt("Ingresa la contraseña de administradora:");
+
+            if (clave === claveAdministradora) {
+
+                document.getElementById(
+                    "panel-administracion"
+                ).style.display = "block";
+
+                actualizarAdministracion();
+
+                document.getElementById(
+                    "panel-administracion"
+                ).scrollIntoView();
+
+            } else if (clave !== null) {
+
+                alert("Contraseña incorrecta.");
+
+            }
+
+        }
+
+
+        function cerrarAdministracion() {
+
+            document.getElementById(
+                "panel-administracion"
+            ).style.display = "none";
+
+        }
+
+
+        function cambiarSabor(sabor, estado) {
+
+            estados.sabores[sabor] = estado;
+
+            guardarEstados();
+
+            actualizarEstadoHelado();
+
+        }
+
+        function cambiarProducto(producto, estado) {
+
+            estados.productos[producto] = estado;
+
+            guardarEstados();
+
+            actualizarEstadosProductos();
+
+        }
+
+
+        function actualizarEstadoHelado() {
+
+            let sabor = document.getElementById("sabor").value;
+
+            let texto = document.getElementById("estado-helado");
+
+            let boton = document.getElementById("btn-helado");
+
+            if (estados.sabores[sabor] === "agotado") {
+
+                texto.textContent = sabor + " está AGOTADO";
+
+                texto.className = "estado agotado";
+
+                boton.disabled = true;
+
+            } else {
+
+                texto.textContent = sabor + " está DISPONIBLE";
+
+                texto.className = "estado disponible";
+
+                boton.disabled = false;
+
+            }
+
+        }
+
+
+        function actualizarEstadosProductos() {
+
+            let productos = [
+                "salchipapa",
+                "hamburguesa",
+                "pollo"
+            ];
+
+            productos.forEach(function(producto) {
+
+                let texto = document.getElementById(
+                    "estado-" + producto
+                );
+
+                let boton = document.getElementById(
+                    "btn-" + producto
+                );
+
+                if (estados.productos[producto] === "agotado") {
+
+                    texto.textContent = "PRODUCTO AGOTADO";
+
+                    texto.className = "estado agotado";
+
+                    boton.disabled = true;
+
+                } else {
+
+                    texto.textContent = "PRODUCTO DISPONIBLE";
+
+                    texto.className = "estado disponible";
+
+                    boton.disabled = false;
+
+                }
+
+            });
+
+        }
+
+
+        function actualizarAdministracion() {
+
+            document.getElementById("admin-chocolate").value =
+                estados.sabores["Chocolate"];
+
+            document.getElementById("admin-vainilla").value =
+                estados.sabores["Vainilla"];
+
+            document.getElementById("admin-frutilla").value =
+                estados.sabores["Frutilla"];
+
+            document.getElementById("admin-pasas").value =
+                estados.sabores["Pasas al ron"];
+
+            document.getElementById("admin-mora").value =
+                estados.sabores["Mora a la crema"];
+
+            document.getElementById("admin-salchipapa").value =
+                estados.productos.salchipapa;
+
+            document.getElementById("admin-hamburguesa").value =
+                estados.productos.hamburguesa;
+
+            document.getElementById("admin-pollo").value =
+                estados.productos.pollo;
+
+        }
+
+
+        function agregarHelado() {
+
+            let sabor = document.getElementById("sabor").value;
+
+            if (estados.sabores[sabor] === "agotado") {
+
+                alert("Este sabor está agotado.");
+
+                return;
+
+            }
+
+            agregarAlCarrito("Helado de " + sabor, 10);
+
+        }
+
+
+        function agregarProducto(nombre, precio, tipo) {
+
+            if (estados.productos[tipo] === "agotado") {
+
+                alert("Este producto está agotado.");
+
+                return;
+
+            }
+
+            agregarAlCarrito(nombre, precio);
+
+        }
+
+
+
+        function agregarAlCarrito(nombre, precio) {
+
+            carrito.push({
+                nombre: nombre,
+                precio: precio
+            });
+
+            actualizarCarrito();
+
+            alert(nombre + " fue agregado al carrito.");
+
+        }
+
+
+        function actualizarCarrito() {
+
+            let lista = document.getElementById("lista-carrito");
+
+            let cantidad = document.getElementById("cantidad");
+
+            let total = document.getElementById("total");
+
+            lista.innerHTML = "";
+
+            let suma = 0;
+
+            if (carrito.length === 0) {
+
+                lista.innerHTML = "<p>El carrito está vacío.</p>";
+
+            }
+
+            carrito.forEach(function(producto, indice) {
+
+                suma = suma + producto.precio;
+
+                let elemento = document.createElement("div");
+
+                elemento.className = "item-carrito";
+
+                elemento.innerHTML =
+                    "<span>" + producto.nombre +
+                    " - Bs. " + producto.precio + "</span>" +
+                    "<button onclick='eliminarProducto(" +
+                    indice + ")'>Eliminar</button>";
+
+                lista.appendChild(elemento);
+
+            });
+
+            cantidad.textContent = carrito.length;
+
+            total.textContent = suma;
+
+        }
+
+
+        function eliminarProducto(indice) {
+
+            carrito.splice(indice, 1);
+
+            actualizarCarrito();
+
+        }
+
+
+
+        function mostrarCarrito() {
+
+            document.getElementById(
+                "ventana-carrito"
+            ).style.display = "block";
+
+        }
+
+
+        function cerrarCarrito() {
+
+            document.getElementById(
+                "ventana-carrito"
+            ).style.display = "none";
+
+        }
+
+
+        function enviarWhatsApp() {
+
+            if (carrito.length === 0) {
+
+                alert("El carrito está vacío.");
+
+                return;
+
+            }
+
+            let mensaje = "Hola, quiero realizar este pedido:\n\n";
+
+            let total = 0;
+
+            carrito.forEach(function(producto) {
+
+                mensaje += "- " + producto.nombre +
+                    ": Bs. " + producto.precio + "\n";
+
+                total += producto.precio;
+
+            });
+
+            mensaje += "\nTotal: Bs. " + total;
+
+            let numero = "59163390248";
+
+            let enlace = "https://wa.me/" +
+                numero +
+                "?text=" +
+                encodeURIComponent(mensaje);
+
+            window.open(enlace, "_blank");
+
+        }
+
+
+        actualizarEstadoHelado();
+
+        actualizarEstadosProductos();
+
+        actualizarCarrito();
+
+    </script>
+
+</body>
+
+</html>
